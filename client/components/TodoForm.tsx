@@ -1,5 +1,5 @@
 import { Button, TextInput, Group } from '@mantine/core';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 

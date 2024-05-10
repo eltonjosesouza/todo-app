@@ -1,6 +1,8 @@
 # Meteor generated
 .meteor/
 
+.vscode/
+
 # Node generated
 node_modules/
 npm-debug.log
@@ -8,3 +10,6 @@ npm-debug.log
 # OS generated
 .DS_Store
 Thumbs.db
+
+conversa.md
+esqueleto.txt

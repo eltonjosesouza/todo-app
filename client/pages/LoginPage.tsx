@@ -1,10 +1,10 @@
-// /client/pages/SignupPage.tsx
+// /client/pages/LoginPage.tsx
 import React from 'react';
 import { Button, Container, TextInput, Title, PasswordInput, Space } from '@mantine/core';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 
-export const SignupPage = () => {
+export const LoginPage = () => {
     const navigate = useNavigate();
     const form = useForm({
         initialValues: {
@@ -13,16 +13,16 @@ export const SignupPage = () => {
         },
     });
 
-    const handleSignup = (values: typeof form.values) => {
+    const handleLogin = (values: typeof form.values) => {
         console.log(values);
-        // Implement signup logic here
+        // Implement login logic here
         navigate('/');
     };
 
     return (
         <Container size={420} my={40}>
-            <Title align="center">Sign Up</Title>
-            <form onSubmit={form.onSubmit(handleSignup)}>
+            <Title align="center">Login</Title>
+            <form onSubmit={form.onSubmit(handleLogin)}>
                 <TextInput
                     required
                     label="Email"
@@ -36,7 +36,7 @@ export const SignupPage = () => {
                     {...form.getInputProps('password')}
                 />
                 <Space h="md" />
-                <Button fullWidth type="submit">Sign Up</Button>
+                <Button fullWidth type="submit">Login</Button>
             </form>
         </Container>
     );
