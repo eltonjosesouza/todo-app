@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Title } from '@mantine/core';
+import { Container, Space, Title } from '@mantine/core';
 import { TodoList } from '../components/TodoList';
 import { TodoForm } from '../components/TodoForm';
 
@@ -8,6 +8,7 @@ export const HomePage = () => {
         <Container>
             <Title order={1}>Your Todos</Title>
             <TodoForm />
+            <Space h="md" />
             <TodoList />
         </Container>
     );

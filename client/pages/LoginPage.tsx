@@ -1,8 +1,8 @@
-// /client/pages/LoginPage.tsx
 import React from 'react';
 import { Button, Container, TextInput, Title, PasswordInput, Space, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Meteor } from 'meteor/meteor';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
@@ -14,9 +14,16 @@ export const LoginPage = () => {
     });
 
     const handleLogin = (values: typeof form.values) => {
-        console.log(values);
-        // Implement login logic here
-        navigate('/');
+        const { email, password } = values;
+        Meteor.loginWithPassword(email, password, (error) => {
+            if (error) {
+                console.log(error);
+                // Aqui você pode tratar o erro, por exemplo, mostrando uma mensagem para o usuário
+            } else {
+                console.log('Login successful');
+                navigate('/'); // Redireciona o usuário para a página inicial após o login bem-sucedido
+            }
+        });
     };
 
     return (

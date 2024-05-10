@@ -18,14 +18,9 @@ const PrivateElement = ({ component: Component }) => {
   return isAuthenticated ? <Component /> : <Navigate to="/login" replace />;
 };
 
-
-
 Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container!); // Ensure the container exists
-
-
-
   root.render(
     <BrowserRouter>
       <MantineProvider withGlobalStyles withNormalizeCSS>
