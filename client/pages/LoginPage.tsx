@@ -1,8 +1,8 @@
 // /client/pages/LoginPage.tsx
 import React from 'react';
-import { Button, Container, TextInput, Title, PasswordInput, Space } from '@mantine/core';
+import { Button, Container, TextInput, Title, PasswordInput, Space, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 export const LoginPage = () => {
     const navigate = useNavigate();
@@ -37,6 +37,10 @@ export const LoginPage = () => {
                 />
                 <Space h="md" />
                 <Button fullWidth type="submit">Login</Button>
+                <Space h="md" />
+                <Text align="center">
+                    Don't have an account? <Link to="/signup" style={{ textDecoration: 'none' }}>Sign up</Link>
+                </Text>
             </form>
         </Container>
     );

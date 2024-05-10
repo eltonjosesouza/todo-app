@@ -2,6 +2,7 @@ import React from 'react';
 import { useTodos } from '../../imports/ui/useTodos';
 import { TodoType } from '../../imports/api/TodosCollection';
 import { List, Text, Button, Group } from '@mantine/core';
+import { Meteor } from 'meteor/meteor';
 
 export const TodoList = () => {
     const { todos, isLoading } = useTodos();
