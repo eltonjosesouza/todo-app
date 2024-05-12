@@ -1,9 +1,13 @@
-import { Button, TextInput, Group } from '@mantine/core';
+import { Button, TextInput, Group, Modal } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { useState } from 'react';
+import { insertTodo } from '/imports/api/todos/TodosRpcMethods';
 
 export const TodoForm = () => {
+
+    const [opened, setOpened] = useState(false);
+
+
     const form = useForm({
         initialValues: {
             text: '',
@@ -11,25 +15,37 @@ export const TodoForm = () => {
     });
 
     const handleSubmit = (values: { text: string }) => {
-        Meteor.call('todos.insert', values.text, (error: any) => {
-            if (error) {
-                console.log('Error inserting todo', error);
-            } else {
+        insertTodo({ text: values.text })
+            .then(() => {
                 form.reset();
-            }
-        });
+                setOpened(false);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
     return (
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-            <Group>
-                <TextInput
-                    required
-                    label="What needs to be done?"
-                    {...form.getInputProps('text')}
-                />
-                <Button type="submit">Add Todo</Button>
-            </Group>
-        </form>
+        <>
+
+            <Button onClick={() => setOpened(true)}>New ToDo</Button>
+            <Modal
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title="Add a new ToDo"
+            >
+                <form onSubmit={form.onSubmit(handleSubmit)}>
+                    <Group>
+                        <TextInput
+                            required
+                            label="What needs to be done?"
+                            {...form.getInputProps('text')}
+                        />
+                        <Button type="submit">Add Todo</Button>
+                    </Group>
+                </form>
+            </Modal>
+
+        </>
     );
 };

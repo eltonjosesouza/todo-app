@@ -1,32 +1,41 @@
 import React, { useState } from 'react';
 import { useTodos } from '../../imports/ui/useTodos';
-import { TodoType } from '../../imports/api/TodosCollection';
+import { TodoType } from '../../imports/api/todos/TodosCollection';
 import { Table, Text, Button, Pagination } from '@mantine/core';
-import { Meteor } from 'meteor/meteor';
+import { removeTodo, setTodoCompleted } from '../../imports/api/todos/TodosRpcMethods'; // Adjust this import as necessary
 
 export const TodoList = () => {
-    const itemsPerPage = 10; // Define itemsPerPage before useTodos
-    const [page, setPage] = useState(1); // Initialize page state before useTodos
-    const { todos, isLoading, totalTodos } = useTodos(page, itemsPerPage); // Now useTodos is called with already defined variables
+    const itemsPerPage = 10;
+    const [page, setPage] = useState(1);
+    const { todos, isLoading, totalTodos } = useTodos(page, itemsPerPage);
+
+
+    const handleComplete = (todoId: string) => {
+        setTodoCompleted({ todoId, completed: true }).then(() => {
+        }).catch((err) => {
+            console.error(err);
+        }
+        );
+    };
+
+    const handleRemove = (todoId: string) => {
+        removeTodo({ todoId }).then(() => {
+        }).catch((err) => {
+            console.error(err);
+        }
+        );
+    }
 
     if (isLoading) {
         return <Text>Loading...</Text>;
     }
-
-    const handleComplete = (todoId: string) => {
-        Meteor.call('todos.setCompleted', todoId, true, (error: any) => {
-            if (error) {
-                alert('Error setting todo as completed. Please try again.');
-            }
-        });
-    };
 
     return (
         <>
             <Table striped highlightOnHover style={{ overflowY: 'auto', maxHeight: '400px' }}>
                 <thead>
                     <tr>
-                        <th>Date and Time</th> {/* Atualizado para incluir hora */}
+                        <th>Date and Time</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -35,7 +44,6 @@ export const TodoList = () => {
                 <tbody>
                     {todos.map((todo: TodoType) => (
                         <tr key={todo._id}>
-                            {/* Atualizado para incluir a data e a hora */}
                             <td>{todo.createdAt ? new Date(todo.createdAt).toLocaleString() : 'N/A'}</td>
                             <td>{todo.text}</td>
                             <td>{todo.completed ? 'Completed' : 'Pending'}</td>
@@ -46,6 +54,13 @@ export const TodoList = () => {
                                     disabled={todo.completed}
                                 >
                                     Complete
+                                </Button>
+                                {' '}
+                                <Button
+                                    onClick={() => handleRemove(todo._id)}
+                                    color="red"
+                                >
+                                    Delete
                                 </Button>
                             </td>
                         </tr>

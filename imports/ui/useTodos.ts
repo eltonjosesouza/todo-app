@@ -4,7 +4,7 @@ declare var Counts: {
 
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
-import { TodosCollection } from "../api/TodosCollection";
+import { TodosCollection } from "../api/todos/TodosCollection";
 
 export const useTodos = (activePage: number, itemsPerPage: number) => {
   const { todos, isLoading, totalTodos } = useTracker(() => {

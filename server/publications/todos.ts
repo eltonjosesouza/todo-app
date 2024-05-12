@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { TodosCollection } from "../../imports/api/TodosCollection";
+import { TodosCollection } from "../../imports/api/todos/TodosCollection";
 import { Counts } from "meteor/tmeasday:publish-counts";
 
 Meteor.publish("todos", function publishTodos() {
