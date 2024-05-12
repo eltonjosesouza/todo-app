@@ -16,6 +16,8 @@ Meteor.methods({
 
     TodoSchema.parse(todo); // Validate todo with Zod
 
+    console.log("todo", todo);
+
     TodosCollection.insert(todo);
   },
 

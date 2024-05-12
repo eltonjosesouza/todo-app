@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTodos } from '../../imports/ui/useTodos';
 import { TodoType } from '../../imports/api/TodosCollection';
-import { List, Text, Button, Group } from '@mantine/core';
+import { Table, Text, Button, Pagination } from '@mantine/core';
 import { Meteor } from 'meteor/meteor';
 
 export const TodoList = () => {
-    const { todos, isLoading } = useTodos();
+    const itemsPerPage = 10; // Define itemsPerPage before useTodos
+    const [page, setPage] = useState(1); // Initialize page state before useTodos
+    const { todos, isLoading, totalTodos } = useTodos(page, itemsPerPage); // Now useTodos is called with already defined variables
 
     if (isLoading) {
         return <Text>Loading...</Text>;
@@ -20,15 +22,42 @@ export const TodoList = () => {
     };
 
     return (
-        <List>
-            {todos.map((todo: TodoType) => (
-                <List.Item key={todo._id}>
-                    <Group position="apart">
-                        <Text>{todo.text}</Text>
-                        <Button onClick={() => handleComplete(todo._id)} color="green">Complete</Button>
-                    </Group>
-                </List.Item>
-            ))}
-        </List>
+        <>
+            <Table striped highlightOnHover style={{ overflowY: 'auto', maxHeight: '400px' }}>
+                <thead>
+                    <tr>
+                        <th>Date and Time</th> {/* Atualizado para incluir hora */}
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {todos.map((todo: TodoType) => (
+                        <tr key={todo._id}>
+                            {/* Atualizado para incluir a data e a hora */}
+                            <td>{todo.createdAt ? new Date(todo.createdAt).toLocaleString() : 'N/A'}</td>
+                            <td>{todo.text}</td>
+                            <td>{todo.completed ? 'Completed' : 'Pending'}</td>
+                            <td>
+                                <Button
+                                    onClick={() => handleComplete(todo._id)}
+                                    color="green"
+                                    disabled={todo.completed}
+                                >
+                                    Complete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+            <Pagination
+                value={page}
+                onChange={setPage}
+                total={Math.ceil(totalTodos / itemsPerPage)}
+                style={{ marginTop: '20px' }}
+            />
+        </>
     );
 };

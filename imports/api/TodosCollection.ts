@@ -2,7 +2,7 @@ import { Mongo } from "meteor/mongo";
 import { z } from "zod";
 
 export const TodoSchema = z.object({
-  _id: z.string(),
+  _id: z.string().optional(),
   text: z.string(),
   userId: z.string(),
   createdAt: z.date(),
