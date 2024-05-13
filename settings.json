@@ -1,0 +1,7 @@
+{
+    "meteorapp.com": {
+        "env": {
+            "MONGO_URL": "mongodb+srv://eltonjose:pD19yUPnYyY5sh7z@cluster0.xmi1ndm.mongodb.net/meteor"
+        }
+    }
+}

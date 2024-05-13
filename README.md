@@ -29,11 +29,12 @@ To run this application, you need to have Meteor installed. If you haven't insta
 
 ```bash
 meteor npm install
+```
+
 Run the application:
-
-
-
+```bash
 meteor
+```
 The application will be available at http://localhost:3000.
 
 Features
@@ -52,9 +53,3 @@ Contributions are welcome! Please feel free to submit a pull request or create a
 
 License
 This project is open source and available under the MIT License.
-
-
-
-
-
-This README provides a basic overview of the Todo App, including its structure, setup instructions, features, technologies used, and contribution guidelines. Adjust the content as necessary to fit the specifics of your project, such as adding a `LICENSE` file if it's mentioned but not yet created.
