@@ -1,7 +1,0 @@
-{
-    "galaxy.meteor.com": {
-        "env": {
-            "MONGO_URL": "mongodb://eltonjose:MP1M5By9d3nc5isv@cluster0.xmi1ndm.mongodb.net/meteor?retryWrites=true&w=majority&appName=Cluster0"
-        }
-    }
-}
