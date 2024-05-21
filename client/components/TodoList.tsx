@@ -2,29 +2,12 @@ import React, { useState } from 'react';
 import { useTodos } from '../../imports/ui/useTodos';
 import { TodoType } from '../../imports/api/todos/TodosCollection';
 import { Table, Text, Button, Pagination } from '@mantine/core';
-import { removeTodo, setTodoCompleted } from '../../imports/api/todos/TodosRpcMethods'; // Adjust this import as necessary
+import { completeTodo, deleteTodo } from '../services/TodoService'; // Ajuste conforme necessário
 
 export const TodoList = () => {
     const itemsPerPage = 10;
     const [page, setPage] = useState(1);
     const { todos, isLoading, totalTodos } = useTodos(page, itemsPerPage);
-
-
-    const handleComplete = (todoId: string) => {
-        setTodoCompleted({ todoId, completed: true }).then(() => {
-        }).catch((err) => {
-            console.error(err);
-        }
-        );
-    };
-
-    const handleRemove = (todoId: string) => {
-        removeTodo({ todoId }).then(() => {
-        }).catch((err) => {
-            console.error(err);
-        }
-        );
-    }
 
     if (isLoading) {
         return <Text>Loading...</Text>;
@@ -49,7 +32,7 @@ export const TodoList = () => {
                             <td>{todo.completed ? 'Completed' : 'Pending'}</td>
                             <td>
                                 <Button
-                                    onClick={() => handleComplete(todo._id)}
+                                    onClick={() => completeTodo(todo._id)}
                                     color="green"
                                     disabled={todo.completed}
                                 >
@@ -57,7 +40,7 @@ export const TodoList = () => {
                                 </Button>
                                 {' '}
                                 <Button
-                                    onClick={() => handleRemove(todo._id)}
+                                    onClick={() => deleteTodo(todo._id)}
                                     color="red"
                                 >
                                     Delete

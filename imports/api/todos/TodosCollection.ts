@@ -10,5 +10,4 @@ export const TodoSchema = z.object({
 });
 
 export type TodoType = z.infer<typeof TodoSchema>;
-
 export const TodosCollection = new Mongo.Collection<TodoType>("todos");

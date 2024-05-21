@@ -7,74 +7,55 @@ import {
 } from "./TodosSchemas";
 import { createMethod } from "grubba-rpc";
 
-const insertTodo = createMethod(
+function insertTodoOperation({ text }: { text: string }) {
+  if (!Meteor.userId()) {
+    throw new Meteor.Error("Not authorized.");
+  }
+
+  const todo = {
+    text,
+    userId: Meteor.userId(),
+    createdAt: new Date(),
+    completed: false,
+  };
+
+  return TodosCollection.insert(todo);
+}
+
+function removeTodoOperation({ todoId }: { todoId: string }) {
+  if (!Meteor.userId()) {
+    throw new Meteor.Error("Not authorized.");
+  }
+
+  return TodosCollection.remove(todoId);
+}
+
+function setTodoCompletedOperation({
+  todoId,
+  completed,
+}: {
+  todoId: string;
+  completed: boolean;
+}) {
+  if (!Meteor.userId()) {
+    throw new Meteor.Error("Not authorized.");
+  }
+
+  return TodosCollection.update(todoId, { $set: { completed } });
+}
+
+export const insertTodo = createMethod(
   "todos.insert",
   TodoInsertSchema,
-  ({ text }) => {
-    return new Promise((resolve, reject) => {
-      if (!Meteor.userId()) {
-        reject(new Meteor.Error("Not authorized."));
-      } else {
-        const todo = {
-          text,
-          userId: Meteor.userId(),
-          createdAt: new Date(),
-          completed: false,
-        };
-        TodosCollection.insert(todo, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      }
-    });
-  }
+  insertTodoOperation
 );
-
-const removeTodo = createMethod(
+export const removeTodo = createMethod(
   "todos.remove",
   TodoRemoveSchema,
-  ({ todoId }) => {
-    return new Promise((resolve, reject) => {
-      if (!Meteor.userId()) {
-        reject(new Meteor.Error("Not authorized."));
-      } else {
-        TodosCollection.remove(todoId, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      }
-    });
-  }
+  removeTodoOperation
 );
-
-const setTodoCompleted = createMethod(
+export const setTodoCompleted = createMethod(
   "todos.setCompleted",
   TodoSetCompletedSchema,
-  ({ todoId, completed }) => {
-    return new Promise((resolve, reject) => {
-      if (!Meteor.userId()) {
-        reject(new Meteor.Error("Not authorized."));
-      } else {
-        TodosCollection.update(
-          todoId,
-          { $set: { completed } },
-          (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result);
-            }
-          }
-        );
-      }
-    });
-  }
+  setTodoCompletedOperation
 );
-
-export { insertTodo, removeTodo, setTodoCompleted };
