@@ -4,7 +4,7 @@ import {
   TodoInsertSchema,
   TodoRemoveSchema,
   TodoSetCompletedSchema,
-} from "./todosSchemas";
+} from "./todosSchemasValidation";
 import { createMethod } from "grubba-rpc";
 
 function insertTodoOperation({ text }: { text: string }) {
