@@ -1,10 +1,10 @@
 import { Meteor } from "meteor/meteor";
-import { TodosCollection } from "./TodosCollection";
+import { TodosCollection } from "./todosCollection";
 import {
   TodoInsertSchema,
   TodoRemoveSchema,
   TodoSetCompletedSchema,
-} from "./TodosSchemas";
+} from "./todosSchemas";
 import { createMethod } from "grubba-rpc";
 
 function insertTodoOperation({ text }: { text: string }) {

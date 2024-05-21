@@ -2,24 +2,21 @@ import React from 'react';
 import { Button, Container, TextInput, Title, PasswordInput, Space, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationService } from '../services/AuthenticationService';
+import { Meteor } from 'meteor/meteor';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
     const form = useForm({
         initialValues: {
-            email: '',
+            username: '',
             password: '',
         },
     });
 
-    const handleLogin = async (values: typeof form.values) => {
-        try {
-            await AuthenticationService.login(values.email, values.password);
-            navigate('/');
-        } catch (error) {
-            alert('Login failed: ' + error.message);
-        }
+    const handleLogin = (values: { username: string; password: string }) => {
+        console.log(values);
+        Meteor.loginWithPassword(values.username, values.password);
+        navigate('/');
     };
 
     return (
@@ -30,7 +27,7 @@ export const LoginPage = () => {
                     required
                     label="Email"
                     placeholder="you@example.com"
-                    {...form.getInputProps('email')}
+                    {...form.getInputProps('username')}
                 />
                 <PasswordInput
                     required

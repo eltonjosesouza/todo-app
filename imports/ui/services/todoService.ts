@@ -2,7 +2,7 @@ import {
   insertTodo,
   setTodoCompleted,
   removeTodo,
-} from "../../imports/api/todos/TodosRpcMethods";
+} from "../../api/todos/todosRpcMethods";
 
 export const completeTodo = async (todoId: string): Promise<void> => {
   try {

@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { TodosCollection } from "../../imports/api/todos/TodosCollection";
+import { TodosCollection } from "./todosCollection";
 import { Counts } from "meteor/tmeasday:publish-counts";
 
 const TOTAL_TODOS_COUNT = "totalTodosCount";

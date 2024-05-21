@@ -1,7 +1,7 @@
 import { Button, TextInput, Group, Modal } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import React, { useState } from 'react';
-import { insertTodos } from '../services/TodoService';
+import { insertTodos } from '../services/todoService';
 
 export const TodoForm = () => {
     const [opened, setOpened] = useState(false);

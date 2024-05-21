@@ -3,12 +3,10 @@ import { createRoot } from 'react-dom/client';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
-import { HomePage } from './pages/HomePage';
-import { LoginPage } from './pages/LoginPage';
-import { SignupPage } from './pages/SignupPage';
+import { HomePage } from '../imports/ui/pages/homePage';
+import { LoginPage } from '../imports/ui/pages/loginPage';
+import { SignupPage } from '../imports/ui/pages/signupPage';
 import { useTracker } from 'meteor/react-meteor-data';
-
-
 
 import '@mantine/core/styles.css';
 

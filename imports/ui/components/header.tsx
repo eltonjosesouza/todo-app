@@ -1,7 +1,7 @@
 // /client/components/Header.tsx
 import React from 'react';
 import { Container, Group, Title, Box } from '@mantine/core';
-import { LogoutButton } from './LogoutButton'; // Adjust the path as necessary
+import { LogoutButton } from './logoutButton';
 
 export const Header = () => {
     return (
@@ -9,7 +9,7 @@ export const Header = () => {
             <Container>
                 <Group style={{ justifyContent: 'space-between' }}>
                     <Title order={2}>Todo App</Title>
-                    <LogoutButton /> {/* This will place the LogoutButton to the right */}
+                    <LogoutButton />
                 </Group>
             </Container>
         </Box>

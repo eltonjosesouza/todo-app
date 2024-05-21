@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Container, TextInput, Title, PasswordInput, Space, Text } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { Link, useNavigate } from 'react-router-dom';
-import { signupSchema } from '../utils/validationSchemas';
-import { Meteor } from 'meteor/meteor';
+import { signupSchema } from '../../utils/validationSchemas';
+import { Accounts } from 'meteor/accounts-base';
 
 export const SignupPage = () => {
     const navigate = useNavigate();
@@ -17,14 +17,9 @@ export const SignupPage = () => {
     });
 
     const handleSignup = (values: typeof form.values) => {
-        Meteor.call('user.signup', values, (error) => {
-            if (error) {
-                console.log('Erro ao cadastrar usuário:', error);
-            } else {
-                console.log('Usuário cadastrado com sucesso!');
-                navigate('/');
-            }
-        });
+        Accounts.createUser({ username: values.email, email: values.email, password: values.password });
+        navigate('/');
+
     };
 
     return (

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useTodos } from '../../imports/ui/useTodos';
-import { TodoType } from '../../imports/api/todos/TodosCollection';
+import { useTodos } from '../services/useTodosService';
+import { TodoType } from '../../api/todos/todosCollection';
 import { Table, Text, Button, Pagination } from '@mantine/core';
-import { completeTodo, deleteTodo } from '../services/TodoService'; // Ajuste conforme necessário
+import { completeTodo, deleteTodo } from '../services/todoService';
 
 export const TodoList = () => {
     const itemsPerPage = 10;

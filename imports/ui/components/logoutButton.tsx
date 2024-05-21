@@ -7,14 +7,10 @@ import { Meteor } from 'meteor/meteor';
 export const LogoutButton = () => {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        Meteor.logout((error) => {
-            if (error) {
-                console.log('Logout error:', error);
-            } else {
-                navigate('/login');
-            }
-        });
+    const handleLogout = async () => {
+        Meteor.logout();
+        navigate('/login');
+
     };
 
     return (

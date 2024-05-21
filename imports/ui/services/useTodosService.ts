@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
-import { TodosCollection } from "../api/todos/TodosCollection";
-import { SUBSCRIPTIONS } from "../utils/Constants";
+import { SUBSCRIPTIONS } from "../../utils/constants";
+import { TodosCollection } from "/imports/api/todos/todosCollection";
 
 declare var Counts: {
   get: (publicationName: string) => number;
@@ -33,7 +33,7 @@ export const useTodos = (activePage: number, itemsPerPage: number) => {
 
     try {
       const todos = TodosCollection.find(
-        {},
+        { userId: Meteor.userId },
         { sort: { createdAt: -1 } }
       ).fetch();
       const totalTodos = Counts.get(SUBSCRIPTIONS.TOTAL_TODOS_COUNT);
