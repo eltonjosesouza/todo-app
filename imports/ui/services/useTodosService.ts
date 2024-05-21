@@ -20,6 +20,8 @@ export const useTodos = (activePage: number, itemsPerPage: number) => {
       return DEFAULT_DATA;
     }
 
+    const subTodos = Meteor.subscribe(SUBSCRIPTIONS.TODOS);
+
     const subsHandle = Meteor.subscribe(
       SUBSCRIPTIONS.PAGINATED_TODOS,
       activePage,
@@ -27,7 +29,7 @@ export const useTodos = (activePage: number, itemsPerPage: number) => {
     );
     const totalHandle = Meteor.subscribe(SUBSCRIPTIONS.TOTAL_TODOS_COUNT);
 
-    if (!subsHandle.ready() || !totalHandle.ready()) {
+    if (!subTodos.ready() || !subsHandle.ready() || !totalHandle.ready()) {
       return { ...DEFAULT_DATA, isLoading: true };
     }
 
